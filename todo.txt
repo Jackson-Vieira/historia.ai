@@ -1,4 +1,14 @@
-INTERFACE TASK
+# INTERFACE TASK 
+
 - UPLOAD A MP3
 - DOWNLOAD TEMP MP3 TO TRANSCRIPION
 - ASK SOMETHING WITH THE CONTEXT (CHATGPT) CHAT
+- CONTROLE DE LIMITE DE COTA ATRAVEZ DO REDIS E ESTIMATIVA DE TOKENS POR CONSULTA (
+    Adotar estrategia de observabilidade para monitorar o consumo de tokens e a quantidade de tokens disponiveis
+    para cada usuario, e notificar o host quando o usuario estiver com poucos tokens disponiveis, por meio de email.
+)
+- LOGS PARA CONTROLE EM PRODUCAO
+- RATE LIMITING FOR DAY (initial tests)
+- USE MY OWN MACHINE AS A SERVER (initial tests) NOTEBOOK
+- PASSAR CONHECIMENTO PARA O TIME
+- TOOLKIT (RESUMIR AULAS DO YT AUTOMATICAMENTE, ANOTACOES DE REUNIOES, RECORTAR VIDEOS, ...)
