@@ -14,8 +14,3 @@ class TurboTranscriber:
         segments, info = self.model.transcribe(audio_path, beam_size=beam_size, language=language)
         print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
         return self._full_text(segments)
-
-""" full_text = ""
-for segment in segments:
-    full_text += segment.text
-    print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text)) """

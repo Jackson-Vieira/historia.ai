@@ -5,7 +5,6 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chat_models import ChatOpenAI
 from langchain.chains.question_answering import load_qa_chain
-# from langchain.chains import RetrievalQA
 
 from dotenv import load_dotenv
 
@@ -47,22 +46,3 @@ class Chat:
     def answer(self, question, matches):
         answer =  self.chain.run(input_documents=matches, question=question)
         return answer
-    
-
-# if __name__ == "__main__":
-#     file_path = os.path.join(os.path.dirname(__file__), "test.txt")
-#     document = load_document(file_path)
-#     docs = split_document(document)
-#     persist_directory = "chroma_db"
-#     vectordb = Chroma.from_documents(
-#         documents=docs, embedding=embeddings, persist_directory=persist_directory
-#     )
-#     vectordb.persist()
-
-#     question = "Explique como a fe cristã é uma fé racional"
-#     matches = db.similarity_search(question, k=20)
-#     print(matches[0])
-#     answer =  chain.run(input_documents=matches, question=question)
-#     print(answer)
-# retrieval_chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=db.as_retriever())
-# retrieval_chain.run(question)
