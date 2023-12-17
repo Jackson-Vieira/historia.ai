@@ -44,5 +44,23 @@ class Chat:
         return matches
     
     def answer(self, question, matches):
+        # TODO: Return a server error to user if chain not created
+        if not self.chain:
+            raise Exception("Chain not created")
+        if len(matches) == 0:
+            # TODO: Add a fallback? or just return a custom error message to user
+            raise Exception("No matches found")
         answer =  self.chain.run(input_documents=matches, question=question)
+        return answer
+    
+    def initialize(self, path, chunk_size=1000, chunk_overlap=20, persist_directory=None):
+        document = self.load_document(path)
+        segments = self.split_document(document, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        self.load_db_from_documents(segments, persist_directory=persist_directory)
+        self.create_qa_chain()
+        return self.db, self.chain
+    
+    def chat(self, question, k=20):
+        matches = self.search(question, k=k)
+        answer = self.answer(question, matches)
         return answer
