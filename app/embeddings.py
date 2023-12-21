@@ -1,0 +1,1 @@
+# put here database methods for embeddings and load them in chat.py

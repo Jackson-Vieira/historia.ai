@@ -1,4 +1,4 @@
-from langchain.document_loaders import TextLoader
+from langchain.document_loaders import TextLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import SentenceTransformerEmbeddings
 
@@ -25,10 +25,14 @@ class Chat:
         loader = TextLoader(path)
         return loader.load()
 
-    def split_document(self, document, chunk_size=1000, chunk_overlap=20):
+    def load_directory(self, path: str):
+        loader = DirectoryLoader(path)
+        return loader.load()
+
+    def split_documents(self, document, chunk_size=1000, chunk_overlap=20):
         splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
-        segments = splitter.split_documents(document)
-        return segments
+        documents = splitter.split_documents(document)
+        return documents
     
     def load_db_from_documents(self, documents, persist_directory=None):
         self.db = Chroma.from_documents(documents, self.embeddings, persist_directory=persist_directory)
@@ -43,10 +47,8 @@ class Chat:
         matches = self.db.similarity_search(question, k=k)
         return matches
     
-    def answer(self, question, matches):
+    def answer(self, question, matches) -> str:
         # TODO: Return a server error to user if chain not created
-        if not self.chain:
-            raise Exception("Chain not created")
         if len(matches) == 0:
             # TODO: Add a fallback? or just return a custom error message to user
             raise Exception("No matches found")
@@ -54,8 +56,8 @@ class Chat:
         return answer
     
     def initialize(self, path, chunk_size=1000, chunk_overlap=20, persist_directory=None):
-        document = self.load_document(path)
-        segments = self.split_document(document, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        document = self.load_directory(path)
+        segments = self.split_documents(document, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         self.load_db_from_documents(segments, persist_directory=persist_directory)
         self.create_qa_chain()
         return self.db, self.chain
