@@ -1,5 +1,7 @@
 from faster_whisper import WhisperModel
 
+import os
+
 class TurboTranscriber:
     def __init__(self, model_size="medium", device="cpu", compute_type="int8"):
         self.model_size = model_size
@@ -21,3 +23,23 @@ class TurboTranscriber:
             for word in segment.words:
                 if self.on_word_complete:
                     self.on_word_complete(word, word.start, word.end)
+
+if __name__ == "__main__":
+    transcriber = TurboTranscriber(model_size="large-v3", device="cuda", compute_type="float16")
+    cwd = os.getcwd()
+
+    audios_path = (
+        os.path.join(cwd, "audios", "audio1.ogg"),
+        os.path.join(cwd, "audios", "audio2.ogg"),
+        os.path.join(cwd, "audios", "audio3.ogg"),
+        os.path.join(cwd, "audios", "audio4.ogg"),
+        os.path.join(cwd, "audios", "audio5.ogg"),
+        os.path.join(cwd, "audios", "audio6.ogg"),
+    )
+
+    for index, audio_path in enumerate(audios_path):
+        transcription = []
+        transcriber.on_segment_complete = lambda segment, start, end: transcription.append(segment.text)
+        transcriber.transcribe(audio_path, word_timestamps=True)
+        with  open(os.path.join(cwd, "transcriptions", f"transcription{index}.txt"), "w") as f:
+            f.write("".join(transcription))

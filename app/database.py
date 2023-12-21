@@ -7,13 +7,6 @@ from langchain.vectorstores import Chroma
 import os
 import uuid
 
-
-""" 
-1. Initialize the database with a embedding function and disk location
-2. Create function to add document to database
-3. Create function to query database
-"""
-
 class Database:
     def __init__(self, embedding_function, disk_location):
         self.embedding_function = embedding_function
@@ -46,8 +39,8 @@ class DocumentManager:
         result = self.db.add_documents(docs, ids=generated_ids)
         return result
     
-    def similarity_search(self, query):
-        docs = self.db.similarity_search(query)
+    def similarity_search(self, query, k=20):
+        docs = self.db.similarity_search(query, k=k)
         return docs
 
 if __name__ == "__main__":
