@@ -12,6 +12,8 @@ class Assistant:
     def __init__(self, llm, db):
         self.llm = llm
         self.db = db
+        self.chain = None
+        self.create_chain(chain_type="stuff")
     
     def chat(self, question, k=20):
         matches = self.search(question, k=k)

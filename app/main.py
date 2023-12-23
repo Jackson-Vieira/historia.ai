@@ -19,13 +19,12 @@ if __name__ == "__main__":
     document_manager = DocumentManager(database=db, text_splitter=text_splitter)
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
     assistant = Assistant(llm=llm, db=db)
+
     assistant.create_chain(chain_type="stuff")
-    
 
     cwd = os.getcwd()
     file_path = os.path.join(cwd, "transcriptions", "transcription1.txt")
     document_manager.add_document(file_path)
-
     
     # ask a question
     question = """

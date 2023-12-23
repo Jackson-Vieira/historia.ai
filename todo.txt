@@ -1,14 +1,16 @@
-# INTERFACE TASK 
-
-- UPLOAD A MP3
-- DOWNLOAD TEMP MP3 TO TRANSCRIPION
-- ASK SOMETHING WITH THE CONTEXT (CHATGPT) CHAT
-- CONTROLE DE LIMITE DE COTA ATRAVEZ DO REDIS E ESTIMATIVA DE TOKENS POR CONSULTA (
-    Adotar estrategia de observabilidade para monitorar o consumo de tokens e a quantidade de tokens disponiveis
-    para cada usuario, e notificar o host quando o usuario estiver com poucos tokens disponiveis, por meio de email.
-)
-- LOGS PARA CONTROLE EM PRODUCAO
-- RATE LIMITING FOR DAY (initial tests)
-- USE MY OWN MACHINE AS A SERVER (initial tests) NOTEBOOK
-- PASSAR CONHECIMENTO PARA O TIME
-- TOOLKIT (RESUMIR AULAS DO YT AUTOMATICAMENTE, ANOTACOES DE REUNIOES, RECORTAR VIDEOS, ...)
+[ ] Criar um script para fazer o upload das transcricoes para o S3 (texto ou os documentos)
+[ ] Upload das transcricoes para S3 AWS
+Isso vai ajudar nas transcricoes futuras e testes para ter um backup das transcricoes.
+OBS: Pensar na estrutura de pastas para armazenar essas transcricoes (talvez pelo nome da aula, data)
+[ ] Estudar Choroma DB para armazenar em forma de documentos os embeedings e transcricao da aula.
+[ ] Estudar RAG para pegar as respostas das perguntas
+[ ] Melhorar resposta das perguntas (contexto, limites, tratamento de excesoes)
+[ ] Automatizar geracao do arquivo PDF com as perguntas e respostas
+[ ] Interface interativa para fazer perguntas e respostas
+[ ] Interface para fazer perguntas e repostas em tempo real (Streamlit) ter a opcao de escolher
+qual a aula que quer fazer as perguntas e respostas e ter a opcao de inserir a pergunta e contexto
+[ ] Opcao de Download do documento DOCX com as perguntas e respostas finais geradas.
+[ ] Hospedar modelo de perguntas e respostas na AWS (MVP)
+[X] Dominio luquito.jacksonsv.com.br
+[ ] Permitir entrada de PDF para ser usado como contexto (File Upload)
+[ ] Salvar a conversa em uma banco de dados para estudo e revisoes
