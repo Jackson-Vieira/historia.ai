@@ -11,6 +11,11 @@ OBS: Pensar na estrutura de pastas para armazenar essas transcricoes (talvez pel
 qual a aula que quer fazer as perguntas e respostas e ter a opcao de inserir a pergunta e contexto
 [ ] Opcao de Download do documento DOCX com as perguntas e respostas finais geradas.
 [ ] Hospedar modelo de perguntas e respostas na AWS (MVP)
+[ ] Lib para ter uma barra de progresso no terminal. 
+[ ] Primeira versao no terminal (MVP)
 [X] Dominio luquito.jacksonsv.com.br
 [ ] Permitir entrada de PDF para ser usado como contexto (File Upload)
 [ ] Salvar a conversa em uma banco de dados para estudo e revisoes
+[ ] API REST com suporte a streaming da resposta
+[ ] Interface utilizando Vue3 e Javascript
+[ ] Cache para controle sessoes de chat
