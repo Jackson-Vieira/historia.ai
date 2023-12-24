@@ -1,8 +1,3 @@
-# from langchain.chat_models import ChatOpenAI
-from langchain.chains.question_answering import load_qa_chain
-
-# from langchain.prompts import HumanMessagePromptTemplate
-# from langchain_core.messages import SystemMessage
 from langchain.chains import LLMChain
 from langchain.prompts.chat import (ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate)
 
@@ -16,11 +11,13 @@ MODEL_NAME = os.getenv("OPENAI_MODEL_NAME")
 
 class Assistant:
     SYSTEM_TEMPLATE = """
-        Given a context, assume the role of an expert historian responding to questions posed by 
+        Given the context that it is the parts of a transcription of a history class, where the teacher explains each question and what his expert. 
+        Assume the role of an expert historian responding to questions posed by 
         a history professor with a doctoral degree. Generate objective and concise answers, demonstrating 
-        a comprehensive understanding of the provided context and content. Limit each response to a maximum of 500 words 
-        to ensure brevity and clarity. Your responses should reflect and make reference to the context provided. The answers
-        should be written in a formal tone and should be concise and objective, and write in pt-br, following the rules of 
+        a comprehensive understanding of the provided context and the content. Limit each response to a maximum of 500 words 
+        to ensure brevity and clarity. Encourage the generation of thoughtful reflections within the answer to showcase a genuine affinity for the content.
+        Your responses SHOULD reflect and make reference to the context provided. The answers should be written in a formal tone and 
+        should be concise and objective, and write in pt-br, following the rules of 
         the portuguese language. 
 
         Context: {context}
@@ -34,12 +31,12 @@ class Assistant:
         self.chain = None
         self.create_chain()
     
-    def chat(self, question, k=20):
+    def chat(self, question, k=5):
         matches = self.search(question, k=k)
         answer = self.answer(question=question, context=matches)
         return answer
     
-    def search(self, question, k=20):
+    def search(self, question, k=5):
         matches = self.db.similarity_search(question, k=k)
         return matches
     
