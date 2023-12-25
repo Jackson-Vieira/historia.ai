@@ -12,5 +12,6 @@ MEDIA_DIR = os.path.join(BASE_DIR, "medias")
 # medias transcriptions DIR
 
 MEDIA_TRANSCRIPTIONS_DIR = os.path.join(MEDIA_DIR, "transcriptions")
+AUDIO_DIR = os.path.join(MEDIA_DIR, "audios")
 
 # constants

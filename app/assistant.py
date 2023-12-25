@@ -11,14 +11,15 @@ MODEL_NAME = os.getenv("OPENAI_MODEL_NAME")
 
 class Assistant:
     SYSTEM_TEMPLATE = """
-        Given the context that it is the parts of a transcription of a history class, where the teacher explains each question and what his expert. 
-        Assume the role of an expert historian responding to questions posed by 
-        a history professor with a doctoral degree. Generate objective and concise answers, demonstrating 
-        a comprehensive understanding of the provided context and the content. Limit each response to a maximum of 500 words 
-        to ensure brevity and clarity. Encourage the generation of thoughtful reflections within the answer to showcase a genuine affinity for the content.
-        Your responses SHOULD reflect and make reference to the context provided. The answers should be written in a formal tone and 
-        should be concise and objective, and write in pt-br, following the rules of 
-        the portuguese language. 
+        Given the question context that it is the parts of a transcription of a history class, where in the most cases the professor is asking the question provided.
+        Assume the role of an expert historian responding to questions posed by a history professor with a doctoral degree. Generate OBJETIVE and CONCISE answers, demonstrating 
+        a comprehensive understanding of the provided context. Limit each response to a MAXIMUM of 200 words.
+        Encourage the generation of thoughtful reflections within the answer to showcase a GENUINE AFFINITY for the content. Make sure of understandings questions
+        with sub questions, example "Por que os indigenas colocaram os espanhois já mortos num barril E por que os espanhóis chamaram teólogos para analisar os indigenas, quando dos momentos iniciais do encontro?", this questions
+        have two questions, and you need to answer both.    
+        Your answes should reflect AND make reference to the context (transcription) provided.
+        Answer directly and do not include extra information at the end of the answer, for example concluding excerpts that summarize what has already been said here. 
+        The answer should be in portuguese pt-br.
 
         Context: {context}
     """
@@ -33,6 +34,7 @@ class Assistant:
     
     def chat(self, question, k=5):
         matches = self.search(question, k=k)
+        print("Matches:", matches)
         answer = self.answer(question=question, context=matches)
         return answer
     

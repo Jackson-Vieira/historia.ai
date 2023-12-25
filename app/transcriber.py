@@ -2,6 +2,8 @@ from faster_whisper import WhisperModel
 
 import os
 
+from constants import MEDIA_TRANSCRIPTIONS_DIR, AUDIO_DIR
+
 class TurboTranscriber:
     def __init__(self, model_size="medium", device="cpu", compute_type="int8"):
         self.model_size = model_size
@@ -26,21 +28,16 @@ class TurboTranscriber:
 
 if __name__ == "__main__":
     transcriber = TurboTranscriber(model_size="large-v3", device="cuda", compute_type="float16")
-    data = {
-        "audios_dir": "audios/Aula_1_IntroducaoAosOrixas_11-08-2021",
-    }
 
-    # Questao_1_13-09-2021.wav
+    atividade_1_audios_path = [os.path.join(AUDIO_DIR, "atividade3", audio) for audio in os.listdir(os.path.join(AUDIO_DIR, "atividade3"))]
+    atividade_2_audios_path = [os.path.join(AUDIO_DIR, "atividade4", audio) for audio in os.listdir(os.path.join(AUDIO_DIR, "atividade4"))]
 
-    # regex to get (Numero da Aula, Conteudo da Aula, Data da Aula)
-    # regex to get (Numero da Questao)
-
-    # transcriptions = []
-    # for index, audio_path in enumerate(audios_path):
-    #     audio_transcription = []
-    #     transcriber.on_segment_complete = lambda segment, start, end: audio_transcription.append(segment.text)
-    #     transcriber.transcribe(audio_path, word_timestamps=True)
-    #     transcriptions.append("".join(audio_transcription))
-
-    # with open(os.path.join(cwd, "transcriptions", "transcription1.txt"), "w") as f:
-    #     f.write("".join(transcriptions))
+    transcriptions = []
+    for index, audio_path in enumerate(atividade_2_audios_path):
+        audio_transcription = []
+        transcriber.on_segment_complete = lambda segment, start, end: audio_transcription.append(segment.text)
+        transcriber.transcribe(audio_path, word_timestamps=True)
+        transcriptions.append("".join(audio_transcription))
+    
+    with open(os.path.join(MEDIA_TRANSCRIPTIONS_DIR, "atividade4.txt"), "w") as file:
+        file.write("\n\n".join(transcriptions))
